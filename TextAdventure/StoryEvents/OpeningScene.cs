@@ -54,6 +54,6 @@ public class OpeningScene: IAmScene
         reachShrine.next = glawddTrial;
 
         glawddTrial.text = ["Rhun drew his sword and prepared for combat."];
-        glawddTrial.triggers = [new StartCombatTrigger(new List<IAmEnemy>() { new FleshOfGlawdd() })];
+        glawddTrial.triggers = [new StartCombatTrigger(new List<Enemy>() { new FleshOfGlawdd() })];
     }
 }

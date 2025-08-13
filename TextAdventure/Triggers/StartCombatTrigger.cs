@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 class StartCombatTrigger: IAmTrigger
 {
-    List<IAmEnemy> enemies;
+    List<Enemy> enemies;
 
-    public StartCombatTrigger(List<IAmEnemy> enemies)
+    public StartCombatTrigger(List<Enemy> enemies)
     {
         this.enemies = enemies;
     }

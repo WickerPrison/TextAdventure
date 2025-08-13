@@ -26,20 +26,11 @@ public static class CombatUtils
         return output;
     }
 
-    public static void DisplayEnemies(List<IAmEnemy> enemies)
+    public static void DisplayEnemies(List<Enemy> enemies)
     {
-        foreach(IAmEnemy enemy in enemies)
+        foreach(Enemy enemy in enemies)
         {
-            Panel panel = new Panel($"{enemy.name}\n HP:{enemy.hp}/{enemy.maxHp}");
-
-            // Sets the border
-            panel.Border = BoxBorder.Ascii;
-            panel.Border = BoxBorder.Square;
-            panel.Border = BoxBorder.Rounded;
-            panel.Border = BoxBorder.Heavy;
-            panel.Border = BoxBorder.Double;
-
-            AnsiConsole.Write(panel);
+            enemy.DisplayEnemy();
         }
     }
 
@@ -57,13 +48,13 @@ public static class CombatUtils
         AnsiConsole.Write(panel);
     }
 
-    public static void SelectEnemy(Action<IAmEnemy> attack, IAmPlayerAction backAction)
+    public static void SelectEnemy(Action<Enemy> attack, IAmPlayerAction backAction)
     {
         AnsiConsole.WriteLine("Choose your target");
         CombatUtils.DisplayEnemies(CombatData.enemies);
 
         List<IAmPlayerAction> enemyOptions = new List<IAmPlayerAction>();
-        foreach (IAmEnemy enemy in CombatData.enemies)
+        foreach (Enemy enemy in CombatData.enemies)
         {
             enemyOptions.Add(new GenericAction(enemy.name, () => attack(enemy)));
         }
@@ -77,9 +68,9 @@ public static class CombatUtils
         selectTarget.PerformAction();
     }
 
-    public static void SelectEnemy(Action<IAmEnemy, int> attack, IAmPlayerAction backAction, int dieValue)
+    public static void SelectEnemy(Action<Enemy, int> attack, IAmPlayerAction backAction, int dieValue)
     {
-        Action<IAmEnemy> newAttack = (target) => attack(target, dieValue);
+        Action<Enemy> newAttack = (target) => attack(target, dieValue);
         SelectEnemy(newAttack, backAction);
     }
 }

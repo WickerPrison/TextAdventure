@@ -7,5 +7,5 @@ using System.Threading.Tasks;
 
 public static class CombatData
 {
-    public static List<IAmEnemy> enemies;
+    public static List<Enemy> enemies;
 }
