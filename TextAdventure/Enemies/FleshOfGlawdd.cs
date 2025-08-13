@@ -19,14 +19,14 @@ public class FleshOfGlawdd : IAmEnemy
 
     public void StartTurn(Action nextTurn)
     {
-        CharacterStats target = Data.party[0];
+        PlayerCharacter target = Data.party[0];
         int damage = Utils.random.Next(4, 10);
         AnsiConsole.WriteLine($"{name} shoots a bolt of lightning at {target.name} for {damage} damage");
         target.GetAttacked(damage);
         nextTurn();
     }
 
-    public void TakeDamage(int amount, CharacterStats damageDealer)
+    public void TakeDamage(int amount, PlayerCharacter damageDealer)
     {
         if (hp <= 0) return;
 

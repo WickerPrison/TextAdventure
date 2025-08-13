@@ -9,11 +9,11 @@ class Block: IAmPlayerAction
 {
     public string display { get; set; } = "Block";
     int damage;
-    CharacterStats thisCharacter;
+    PlayerCharacter thisCharacter;
     IAmPlayerAction noAD;
     IAmPlayerAction cancel;
 
-    public Block(CharacterStats thisCharacter, Action cancel, int damage)
+    public Block(PlayerCharacter thisCharacter, Action cancel, int damage)
     {
         this.thisCharacter = thisCharacter;
         this.damage = damage;
@@ -25,7 +25,7 @@ class Block: IAmPlayerAction
     public void PerformAction()
     {
         List<IAmPlayerAction> options = new List<IAmPlayerAction>();
-        foreach(int actionDie in thisCharacter.currentActionDice)
+        foreach(int actionDie in thisCharacter.stats.currentActionDice)
         {
             int reduction = CalculateBLockAmount(actionDie);
             options.Add(new GenericAction($"[[{actionDie}]]: {reduction} damage reduction", () => BlockDamage(reduction, actionDie)));
@@ -51,10 +51,10 @@ class Block: IAmPlayerAction
     {
         if(dieValue != 0)
         {
-            thisCharacter.SpendActionDie(dieValue);
+            thisCharacter.stats.SpendActionDie(dieValue);
         }
 
         int damageTaken = Math.Max(damage - reduction, 0);
-        thisCharacter.LoseHealth(damageTaken);
+        thisCharacter.stats.LoseHealth(damageTaken);
     }
 }

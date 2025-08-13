@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 public static class Data
 {
-    public static List<CharacterStats> party = new List<CharacterStats>();
+    public static List<PlayerCharacter> party = new List<PlayerCharacter>();
 }

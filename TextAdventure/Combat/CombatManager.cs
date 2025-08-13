@@ -32,10 +32,10 @@ public class CombatManager
         Console.ReadKey();
 
         AnsiConsole.WriteLine("Your party rolls thier Action Dice");
-        foreach(CharacterStats character in Data.party)
+        foreach(PlayerCharacter character in Data.party)
         {
-            character.RollActionDice();
-            AnsiConsole.WriteLine($"{character.name}: {CombatUtils.ActionDiceDisplay(character.currentActionDice)}");
+            character.stats.RollActionDice();
+            AnsiConsole.WriteLine($"{character.name}: {CombatUtils.ActionDiceDisplay(character.stats.currentActionDice)}");
         }
         AnsiConsole.WriteLine("");
 
