@@ -5,19 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class FleshOfGlawdd : IAmEnemy
+public class FleshOfGlawdd : Enemy
 {
-    public string name { get; set; } = "Flesh of Glawdd";
-    public int maxHp { get; set; } = 20;
-    public int hp { get; set; }
-    public int speed { get; set; } = 1;
 
     public FleshOfGlawdd()
     {
+        maxHp = 20;
         hp = maxHp;
+        speed = 1;
+        name = "Flesh of Glawdd";
     }
 
-    public void StartTurn(Action nextTurn)
+    public override void StartTurn(Action nextTurn)
     {
         PlayerCharacter target = Data.party[0];
         int damage = Utils.random.Next(4, 10);
@@ -26,7 +25,7 @@ public class FleshOfGlawdd : IAmEnemy
         nextTurn();
     }
 
-    public void TakeDamage(int amount, PlayerCharacter damageDealer)
+    public override void TakeDamage(int amount, PlayerCharacter damageDealer)
     {
         if (hp <= 0) return;
 

@@ -16,7 +16,7 @@ public class CombatManager
     CombatState combatState;
     List<IDoCombat> combatants;
 
-    public void StartCombat(List<IAmEnemy> enemies)
+    public void StartCombat(List<Enemy> enemies)
     {
         CombatData.enemies = enemies;
         combatState = CombatState.START;

@@ -45,14 +45,14 @@ class IronShortsword: IAmPlayerAction
         confirm.PerformAction();
     }
 
-    void IronShortswordNoAD(IAmEnemy target)
+    void IronShortswordNoAD(Enemy target)
     {
         AnsiConsole.WriteLine($"{thisCharacter.name} strikes at {target.name} with his iron shortsword");
         target.TakeDamage(baseDamage, thisCharacter);
         this.thisCharacter.NextTurn();
     }
 
-    void IronShortswordWithAD(IAmEnemy target, int dieValue)
+    void IronShortswordWithAD(Enemy target, int dieValue)
     {
         AnsiConsole.WriteLine($"{thisCharacter.name} strikes at {target.name} with his iron shortsword");
         thisCharacter.stats.SpendActionDie(dieValue);
