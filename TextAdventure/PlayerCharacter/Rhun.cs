@@ -16,7 +16,8 @@ class Rhun: PlayerCharacter
         stats.evasion = 0;
         stats.defiance = 2;
         stats.actionDice = 3;
-        stats.maxHealth = 20;
+        stats.maxHp = 20;
+        stats.hp = stats.maxHp;
     }
 
     public override void RootCombatMenu()
@@ -26,10 +27,11 @@ class Rhun: PlayerCharacter
         OpenMenu rootMenu = new OpenMenu("Back", RootCombatMenu);
         Breathe breathe = new Breathe(RootCombatMenu, this);
         ViewEnemies viewEnemies = new ViewEnemies(RootCombatMenu);
+        ViewParty viewParty = new ViewParty(RootCombatMenu);
 
         IAmPlayerAction option = AnsiConsole.Prompt(
             new SelectionPrompt<IAmPlayerAction>()
-            .AddChoices([attacksMenu, breathe, viewEnemies])
+            .AddChoices([attacksMenu, breathe, viewEnemies, viewParty])
             .UseConverter(option => option.display));
 
         option.PerformAction();

@@ -26,18 +26,15 @@ public class CombatManager
         AnsiConsole.WriteLine("");
         Console.ReadKey();
 
-        AnsiConsole.WriteLine("You view your foes");
+        AnsiConsole.WriteLine("You view your foes and your allies");
         CombatUtils.DisplayEnemies(enemies);
-        AnsiConsole.WriteLine("");
-        Console.ReadKey();
-
-        AnsiConsole.WriteLine("Your party rolls thier Action Dice");
         foreach(PlayerCharacter character in Data.party)
         {
             character.stats.RollActionDice();
-            AnsiConsole.WriteLine($"{character.name}: {CombatUtils.ActionDiceDisplay(character.stats.currentActionDice)}");
         }
+        CombatUtils.DisplayParty(Data.party);
         AnsiConsole.WriteLine("");
+        Console.ReadKey();
 
         combatants = new List<IDoCombat>(enemies);
         combatants.AddRange(Data.party);

@@ -19,8 +19,8 @@ public class CharacterStats
     public int defiance { get; set; }
     public int evasion { get; set; }
     public int speed { get; set; } = 5;
-    public int maxHealth;
-    int health;
+    public int maxHp;
+    public int hp;
     public int defense;
 
     public int actionDice;
@@ -28,7 +28,7 @@ public class CharacterStats
 
     public CharacterStats()
     {
-        health = maxHealth;
+        hp = maxHp;
     }
 
     public void IncrementStat(StatTypes type, int amount)
@@ -78,6 +78,6 @@ public class CharacterStats
     public void LoseHealth(int amount)
     {
         AnsiConsole.WriteLine($"{name} takes {amount} damage");
-        health -= amount;
+        hp -= amount;
     }
 }

@@ -37,6 +37,26 @@ public abstract class PlayerCharacter: IDoCombat
         nextTurn();
     }
 
+    public void DisplayCharacter()
+    {
+        Panel panel = new Panel($"{name}" +
+            $"\nHP: {stats.hp}/{stats.maxHp}" +
+            $"\nAction Dice:{CombatUtils.ActionDiceDisplay(this)}" +
+            $"\nDefiance: {stats.defiance}" +
+            $"\nEvasion: {stats.evasion}" +
+            $"\nDefense: {stats.defense}" +
+            $"\nSpeed: {stats.speed}");
+
+        // Sets the border
+        panel.Border = BoxBorder.Ascii;
+        panel.Border = BoxBorder.Square;
+        panel.Border = BoxBorder.Rounded;
+        panel.Border = BoxBorder.Heavy;
+        panel.Border = BoxBorder.Double;
+
+        AnsiConsole.Write(panel);
+    }
+
     public abstract void RootCombatMenu();
     public abstract void GetAttacked(int damage);
 }

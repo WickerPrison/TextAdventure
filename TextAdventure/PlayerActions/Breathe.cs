@@ -52,7 +52,7 @@ public class Breathe: IAmPlayerAction
         AnsiConsole.WriteLine("You take a moment to catch your breath.");
 
         thisCharacter.stats.RollActionDice(rerolls);
-        AnsiConsole.WriteLine(CombatUtils.ActionDiceDisplay(thisCharacter.stats.currentActionDice));
+        AnsiConsole.WriteLine(CombatUtils.ActionDiceDisplay(thisCharacter));
 
         thisCharacter.NextTurn();
     }

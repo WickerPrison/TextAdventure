@@ -19,9 +19,18 @@ public static class CombatUtils
         string output = "";
         for(int i = 0; i < diceResults.Count; i++)
         {
-            output += "[";
-            output += diceResults[i].ToString();
-            output += "] ";
+            output += $"[[{diceResults[i]}]] ";
+        }
+        return output;
+    }
+
+    public static string ActionDiceDisplay(PlayerCharacter character)
+    {
+        string output = ActionDiceDisplay(character.stats.currentActionDice);
+        int diff = character.stats.actionDice - character.stats.currentActionDice.Count;
+        for(int i = 0; i < diff; i++)
+        {
+            output += "[[-]] ";
         }
         return output;
     }
@@ -31,6 +40,14 @@ public static class CombatUtils
         foreach(Enemy enemy in enemies)
         {
             enemy.DisplayEnemy();
+        }
+    }
+
+    public static void DisplayParty(List<PlayerCharacter> party)
+    {
+        foreach(PlayerCharacter character in party)
+        {
+            character.DisplayCharacter();
         }
     }
 
