@@ -7,20 +7,20 @@ using System.Threading.Tasks;
 
 public class IncrementStatTrigger: IAmTrigger
 {
-    public StatTypes stat;
-    public Character character;
-    public int amount;
+    StatTypes stat;
+    int amount;
+    Character character;
 
-    public IncrementStatTrigger(StatTypes statType, Character characterToIncrement, int amountToIncrement)
+    public IncrementStatTrigger(StatTypes stat, Character character, int amountToIncrement)
     {
-        stat = statType;
-        character = characterToIncrement;
+        this.stat = stat;
         amount = amountToIncrement;
+        this.character = character;
     }
 
     public void FireTrigger()
     {
-        CharacterStats stats = Data.party.Find(characterStat => characterStat.character == character);
-        stats.IncrementStat(stat, amount);
+        PlayerCharacter playerCharacter = Data.party.Find(partyMember => partyMember.character == character);
+        playerCharacter.stats.IncrementStat(stat, amount);
     }
 }

@@ -8,5 +8,5 @@ public interface IAmEnemy: IDoCombat
 {
     int maxHp { get; set; }
     int hp { get; set; }
-    void TakeDamage(int amount, CharacterStats damageDealer);
+    void TakeDamage(int amount, PlayerCharacter damageDealer);
 }

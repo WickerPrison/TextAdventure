@@ -4,12 +4,7 @@ using Spectre.Console;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-CharacterStats rhun = new CharacterStats();
-rhun.character = Character.RHUN;
-rhun.evasion = 0;
-rhun.defiance = 2;
-rhun.actionDice = 3;
-rhun.maxHealth = 20;
+Rhun rhun = new Rhun();
 
 OpeningScene openingScene = new OpeningScene();
 

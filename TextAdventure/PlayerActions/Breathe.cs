@@ -13,9 +13,9 @@ public class Breathe: IAmPlayerAction
     public string display { get; set; } = "Breathe";
     IAmPlayerAction menuAction;
     IAmPlayerAction breatheAction;
-    CharacterStats thisCharacter;
+    PlayerCharacter thisCharacter;
 
-    public Breathe(Action menuAction, CharacterStats thisCharacter)
+    public Breathe(Action menuAction, PlayerCharacter thisCharacter)
     {
         this.thisCharacter = thisCharacter;
         this.menuAction = new GenericAction("Cancel", menuAction);
@@ -39,19 +39,20 @@ public class Breathe: IAmPlayerAction
 
     void PerformBreathe()
     {
+        AnsiConsole.WriteLine("Which dice do you want to reroll?");
         List<int> rerolls = AnsiConsole.Prompt(
             new MultiSelectionPrompt<int>()
-            .AddChoices(thisCharacter.currentActionDice)
+            .AddChoices(thisCharacter.stats.currentActionDice)
             .UseConverter(option => $"[[{option.ToString()}]]")
             .NotRequired()
             .InstructionsText(
-            "[grey](Press [blue]<space>[/] to toggle a fruit, " +
+            "[grey](Press [blue]<space>[/] to select a die to reroll, " +
             "[green]<enter>[/] to accept)[/]"));
 
         AnsiConsole.WriteLine("You take a moment to catch your breath.");
 
-        thisCharacter.RollActionDice(rerolls);
-        AnsiConsole.WriteLine(CombatUtils.ActionDiceDisplay(thisCharacter.currentActionDice));
+        thisCharacter.stats.RollActionDice(rerolls);
+        AnsiConsole.WriteLine(CombatUtils.ActionDiceDisplay(thisCharacter.stats.currentActionDice));
 
         thisCharacter.NextTurn();
     }

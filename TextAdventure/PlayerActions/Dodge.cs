@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 public class Dodge: IAmPlayerAction
 {
     public string display { get; set; } = "Dodge";
-    CharacterStats thisCharacter;
+    PlayerCharacter thisCharacter;
     IAmPlayerAction noAD;
     IAmPlayerAction cancel;
     int damage;
 
-    public Dodge(CharacterStats thisCharacter, Action cancel, int damage)
+    public Dodge(PlayerCharacter thisCharacter, Action cancel, int damage)
     {
         this.damage = damage;
         this.thisCharacter = thisCharacter;
@@ -27,7 +27,7 @@ public class Dodge: IAmPlayerAction
     public void PerformAction()
     {
         List<IAmPlayerAction> options = new List<IAmPlayerAction>();
-        foreach (int actionDie in thisCharacter.currentActionDice)
+        foreach (int actionDie in thisCharacter.stats.currentActionDice)
         {
             int percent = CalculateDodgeChance(actionDie);
             options.Add(new GenericAction($"[[{actionDie}]]: {percent}% dodge chance", () => DodgeChance(percent, damage, actionDie)));
@@ -46,21 +46,21 @@ public class Dodge: IAmPlayerAction
 
     int CalculateDodgeChance(int dieValue)
     {
-        return dieValue * 10 + thisCharacter.evasion;
+        return dieValue * 10 + thisCharacter.stats.evasion;
     }
 
     void DodgeChance(int percent, int damage, int dieValue = 0)
     {
         if(dieValue != 0)
         {
-            thisCharacter.SpendActionDie(dieValue);
+            thisCharacter.stats.SpendActionDie(dieValue);
         }
 
         int roll = Utils.random.Next(1, 101);
         if(roll > percent)
         {
             AnsiConsole.WriteLine($"{thisCharacter.name} fails to dodge");
-            thisCharacter.LoseHealth(damage);
+            thisCharacter.stats.LoseHealth(damage);
         }
         else
         {

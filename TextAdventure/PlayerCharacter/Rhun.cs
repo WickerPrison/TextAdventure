@@ -1,15 +1,61 @@
-﻿using System;
+﻿#nullable disable
+using Spectre.Console;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-class Rhun: IAmPlayerCharacter
+class Rhun: PlayerCharacter
 {
-    public CharacterStats stats { get; set; }
-
-    public Rhun()
+    public Rhun() : base()
     {
-        this.stats = new CharacterStats();
+        name = "Rhun";
+        speed = 5;
+        character = Character.RHUN;
+        stats.evasion = 0;
+        stats.defiance = 2;
+        stats.actionDice = 3;
+        stats.maxHealth = 20;
+    }
+
+    public override void RootCombatMenu()
+    {
+        AnsiConsole.WriteLine("");
+        OpenMenu attacksMenu = new OpenMenu("Attack", AttacksMenu);
+        OpenMenu rootMenu = new OpenMenu("Back", RootCombatMenu);
+        Breathe breathe = new Breathe(RootCombatMenu, this);
+        ViewEnemies viewEnemies = new ViewEnemies(RootCombatMenu);
+
+        IAmPlayerAction option = AnsiConsole.Prompt(
+            new SelectionPrompt<IAmPlayerAction>()
+            .AddChoices([attacksMenu, breathe, viewEnemies])
+            .UseConverter(option => option.display));
+
+        option.PerformAction();
+    }
+
+    void AttacksMenu()
+    {
+        IronShortsword ironShortsword = new IronShortsword(AttacksMenu, this);
+        OpenMenu rootMenu = new OpenMenu("Back", RootCombatMenu);
+        IAmPlayerAction option = AnsiConsole.Prompt(
+            new SelectionPrompt<IAmPlayerAction>()
+            .AddChoices([ironShortsword, rootMenu])
+            .UseConverter(option => option.display));
+
+        option.PerformAction();
+    }
+
+    public override void GetAttacked(int damage)
+    {
+        Dodge dodge = new Dodge(this, () => GetAttacked(damage), damage);
+        Block block = new Block(this, () => GetAttacked(damage), damage);
+        IAmPlayerAction option = AnsiConsole.Prompt(
+            new SelectionPrompt<IAmPlayerAction>()
+            .AddChoices([dodge, block])
+            .UseConverter(option => option.display));
+
+        option.PerformAction();
     }
 }
