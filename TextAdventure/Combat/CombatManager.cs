@@ -47,6 +47,14 @@ public class CombatManager
         if(CombatData.enemies.Count == 0)
         {
             AnsiConsole.WriteLine("You win!");
+            Console.ReadKey();
+            return;
+        }
+
+        if(Data.party.Count == 0)
+        {
+            AnsiConsole.MarkupLine("[red]You Died[/]");
+            Console.ReadKey();
             return;
         }
 

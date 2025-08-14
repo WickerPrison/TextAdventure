@@ -60,4 +60,10 @@ class Rhun: PlayerCharacter
 
         option.PerformAction();
     }
+
+    public override void Death()
+    {
+        Data.party.Remove(this);
+        AnsiConsole.MarkupLine($"{name} has fallen!");
+    }
 }

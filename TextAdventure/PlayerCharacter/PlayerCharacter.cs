@@ -21,7 +21,7 @@ public abstract class PlayerCharacter: IDoCombat
 
     public PlayerCharacter()
     {
-        stats = new CharacterStats();
+        stats = new CharacterStats(Death);
         Data.party.Add(this);
     }
 
@@ -55,4 +55,5 @@ public abstract class PlayerCharacter: IDoCombat
 
     public abstract void RootCombatMenu();
     public abstract void GetAttacked(int damage);
+    public abstract void Death();
 }
