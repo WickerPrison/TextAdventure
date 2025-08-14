@@ -6,27 +6,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public enum CombatState
-{
-    START, PLAYER_TURN, ENEMY_TURN
-}
-
 public class CombatManager
 {
-    CombatState combatState;
     List<IDoCombat> combatants;
 
     public void StartCombat(List<Enemy> enemies)
     {
         CombatData.enemies = enemies;
-        combatState = CombatState.START;
 
         AnsiConsole.WriteLine("");
         AnsiConsole.Write(new Rule("Begin Combat"));
         AnsiConsole.WriteLine("");
         Console.ReadKey();
 
-        AnsiConsole.WriteLine("You view your foes and your allies");
         CombatUtils.DisplayEnemies(enemies);
         foreach(PlayerCharacter character in Data.party)
         {
@@ -48,6 +40,14 @@ public class CombatManager
         if(CombatData.enemies.Count == 0)
         {
             AnsiConsole.WriteLine("You win!");
+            Console.ReadKey();
+            return;
+        }
+
+        if(Data.party.Count == 0)
+        {
+            AnsiConsole.MarkupLine("[red]You Died[/]");
+            Console.ReadKey();
             return;
         }
 

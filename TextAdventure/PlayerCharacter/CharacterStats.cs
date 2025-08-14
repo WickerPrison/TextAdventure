@@ -25,9 +25,11 @@ public class CharacterStats
 
     public int actionDice;
     public List<int> currentActionDice = new List<int>();
+    Action death;
 
-    public CharacterStats()
+    public CharacterStats(Action death)
     {
+        this.death = death;
         hp = maxHp;
     }
 
@@ -77,7 +79,14 @@ public class CharacterStats
 
     public void LoseHealth(int amount)
     {
-        AnsiConsole.WriteLine($"{name} takes {amount} damage");
         hp -= amount;
+        if(hp > 0)
+        {
+            AnsiConsole.MarkupLine($"{name} takes [red]{amount}[/] damage. {name} has [red]{hp}/{maxHp}[/] HP");
+        }
+        else
+        {
+            death();
+        }
     }
 }

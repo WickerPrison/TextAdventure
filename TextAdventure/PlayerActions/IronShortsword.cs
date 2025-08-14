@@ -17,7 +17,7 @@ class IronShortsword: IAmPlayerAction
     public IronShortsword(Action menuAction, PlayerCharacter characterStats)
     {
         this.menuAction = new GenericAction("Cancel", menuAction);
-        noAD = new GenericAction($"[[-]]: Deal {baseDamage} damage to one enemy", () => CombatUtils.SelectEnemy(IronShortswordNoAD, this.menuAction));
+        noAD = new GenericAction($"[[-]]: Deal [red]{baseDamage}[/] damage to one enemy", () => CombatUtils.SelectEnemy(IronShortswordNoAD, this.menuAction));
         thisCharacter = characterStats;
     }
 
@@ -25,13 +25,13 @@ class IronShortsword: IAmPlayerAction
     {
         AbilityDescription abilityDescription = new AbilityDescription();
         abilityDescription.name = "Iron Shortsword";
-        abilityDescription.description = $"Deal {baseDamage} + [[x]] damage to one enemy";
+        abilityDescription.description = $"Deal [red]{baseDamage} + [[x]][/] damage to one enemy";
         CombatUtils.DisplayAbilityDescription(abilityDescription);
 
         List<IAmPlayerAction> attacks = new List<IAmPlayerAction>();
         foreach(int actionDie in thisCharacter.stats.currentActionDice)
         {
-            attacks.Add(new GenericAction($"Deal {baseDamage} + [[{actionDie}]] damage to one enemy", () => CombatUtils.SelectEnemy(IronShortswordWithAD, menuAction, actionDie)));
+            attacks.Add(new GenericAction($"Deal [red]{baseDamage} + [[{actionDie}]][/] damage to one enemy", () => CombatUtils.SelectEnemy(IronShortswordWithAD, menuAction, actionDie)));
         }
 
         attacks.Add(noAD);
@@ -47,16 +47,20 @@ class IronShortsword: IAmPlayerAction
 
     void IronShortswordNoAD(Enemy target)
     {
-        AnsiConsole.WriteLine($"{thisCharacter.name} strikes at {target.name} with his iron shortsword");
+        AnsiConsole.WriteLine("");
+        AnsiConsole.MarkupLine($"{thisCharacter.name} strikes at {target.name} with his iron shortsword");
         target.TakeDamage(baseDamage, thisCharacter);
+        Console.ReadKey();
         this.thisCharacter.NextTurn();
     }
 
     void IronShortswordWithAD(Enemy target, int dieValue)
     {
-        AnsiConsole.WriteLine($"{thisCharacter.name} strikes at {target.name} with his iron shortsword");
+        AnsiConsole.WriteLine("");
+        AnsiConsole.MarkupLine($"{thisCharacter.name} strikes at {target.name} with his iron shortsword");
         thisCharacter.stats.SpendActionDie(dieValue);
         target.TakeDamage(baseDamage + dieValue, thisCharacter);
+        Console.ReadKey();
         this.thisCharacter.NextTurn();
     }
 }

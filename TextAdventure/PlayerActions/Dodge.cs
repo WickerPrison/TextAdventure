@@ -59,12 +59,12 @@ public class Dodge: IAmPlayerAction
         int roll = Utils.random.Next(1, 101);
         if(roll > percent)
         {
-            AnsiConsole.WriteLine($"{thisCharacter.name} fails to dodge");
+            AnsiConsole.MarkupLine($"{thisCharacter.name} fails to dodge");
             thisCharacter.stats.LoseHealth(damage);
         }
         else
         {
-            AnsiConsole.WriteLine($"{thisCharacter.name} dodges to the side, avoiding all damage");
+            AnsiConsole.MarkupLine($"{thisCharacter.name} dodges to the side, avoiding all damage");
         }
     }
 }

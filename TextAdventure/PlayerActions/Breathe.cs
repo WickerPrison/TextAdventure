@@ -39,21 +39,30 @@ public class Breathe: IAmPlayerAction
 
     void PerformBreathe()
     {
-        AnsiConsole.WriteLine("Which dice do you want to reroll?");
-        List<int> rerolls = AnsiConsole.Prompt(
-            new MultiSelectionPrompt<int>()
-            .AddChoices(thisCharacter.stats.currentActionDice)
-            .UseConverter(option => $"[[{option.ToString()}]]")
-            .NotRequired()
-            .InstructionsText(
-            "[grey](Press [blue]<space>[/] to select a die to reroll, " +
-            "[green]<enter>[/] to accept)[/]"));
+        List<int> rerolls;
+        if(thisCharacter.stats.currentActionDice.Count > 0)
+        {
+            AnsiConsole.WriteLine("Which dice do you want to reroll?");
+            rerolls = AnsiConsole.Prompt(
+                new MultiSelectionPrompt<int>()
+                .AddChoices(thisCharacter.stats.currentActionDice)
+                .UseConverter(option => $"[[{option.ToString()}]]")
+                .NotRequired()
+                .InstructionsText(
+                "[grey](Press [blue]<space>[/] to select a die to reroll, " +
+                "[green]<enter>[/] to accept)[/]"));
+        }
+        else
+        {
+            rerolls = new List<int>();
+        }
 
-        AnsiConsole.WriteLine("You take a moment to catch your breath.");
+        AnsiConsole.WriteLine($"{thisCharacter.name} takes a moment to catch his breath.");
 
         thisCharacter.stats.RollActionDice(rerolls);
-        AnsiConsole.WriteLine(CombatUtils.ActionDiceDisplay(thisCharacter));
+        AnsiConsole.MarkupLine($"[green]{CombatUtils.ActionDiceDisplay(thisCharacter)}[/]");
 
+        Console.ReadKey();
         thisCharacter.NextTurn();
     }
 }

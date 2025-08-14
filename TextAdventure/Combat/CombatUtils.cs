@@ -53,21 +53,17 @@ public static class CombatUtils
 
     public static void DisplayAbilityDescription(AbilityDescription ability)
     {
-        Panel panel = new Panel($"{ability.name}\n {ability.description}");
+        Panel panel = new Panel($"[bold]{ability.name}[/]\n {ability.description}");
 
         // Sets the border
-        panel.Border = BoxBorder.Ascii;
-        panel.Border = BoxBorder.Square;
         panel.Border = BoxBorder.Rounded;
-        panel.Border = BoxBorder.Heavy;
-        panel.Border = BoxBorder.Double;
 
         AnsiConsole.Write(panel);
     }
 
     public static void SelectEnemy(Action<Enemy> attack, IAmPlayerAction backAction)
     {
-        AnsiConsole.WriteLine("Choose your target");
+        AnsiConsole.MarkupLine("Choose your target");
         CombatUtils.DisplayEnemies(CombatData.enemies);
 
         List<IAmPlayerAction> enemyOptions = new List<IAmPlayerAction>();

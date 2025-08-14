@@ -11,13 +11,12 @@ public class OpeningScene: IAmScene
     public OpeningScene()
     {
         StoryEvent crestPeak = new StoryEvent();
-        //firstEvent = crestPeak;
+        firstEvent = crestPeak;
         StoryEvent choosePath = new StoryEvent();
         StoryEvent forest = new StoryEvent();
         StoryEvent rain = new StoryEvent();
         StoryEvent reachShrine = new StoryEvent();
         StoryEvent glawddTrial = new StoryEvent();
-        firstEvent = glawddTrial;
 
 
         crestPeak.text = ["Rhun crested the top of a peak and there it was, merely a mile away. The shrine where he would finally become a priest of Glawdd."];
@@ -33,12 +32,12 @@ public class OpeningScene: IAmScene
         choosePath.options = [_forest, _rain];
 
         int evasionAmount = 5;
-        forest.text = [$"Rhun took the slightly longer route through the trees, sheltered from the rain. +{evasionAmount} Evasion"];
+        forest.text = [$"Rhun took the slightly longer route through the trees, sheltered from the rain. [green]+{evasionAmount} Evasion[/]"];
         forest.triggers = [new IncrementStatTrigger(StatTypes.EVASION, Character.RHUN, evasionAmount)];
         forest.next = reachShrine;
 
         int defianceAmount = 1;
-        rain.text = [$"Rhun marched forward, straight through the ever worsening storm. +{defianceAmount} Defiance"];
+        rain.text = [$"Rhun marched forward, straight through the ever worsening storm. [green]+{defianceAmount} Defiance[/]"];
         rain.triggers = [new IncrementStatTrigger(StatTypes.DEFIANCE, Character.RHUN, defianceAmount)];
         rain.next = reachShrine;
 
