@@ -18,10 +18,16 @@ public class FleshOfGlawdd : Enemy
 
     public override void StartTurn(Action nextTurn)
     {
+        AnsiConsole.WriteLine("");
+        AnsiConsole.Write(new Rule($"{name}'s Turn"));
+        Console.ReadKey();
+
         PlayerCharacter target = Data.party[0];
         int damage = Utils.random.Next(4, 10);
-        AnsiConsole.WriteLine($"{name} shoots a bolt of lightning at {target.name} for {damage} damage");
+        AnsiConsole.WriteLine("");
+        AnsiConsole.MarkupLine($"{name} shoots a bolt of lightning at {target.name} for [red]{damage}[/] damage. {target.name} has [red]{target.stats.hp}/{target.stats.maxHp}[/] HP.");
         target.GetAttacked(damage);
+        Console.ReadKey();
         nextTurn();
     }
 
@@ -32,12 +38,13 @@ public class FleshOfGlawdd : Enemy
         hp -= amount;
         if(hp > 0)
         {
-            AnsiConsole.WriteLine($"{name} takes {amount} damage! It has {hp}/{maxHp} HP left.");
+            AnsiConsole.MarkupLine($"{name} takes [red]{amount}[/] damage! It has [red]{hp}/{maxHp}[/] HP left.");
         }
         else
         {
             CombatData.enemies.Remove(this);
-            AnsiConsole.WriteLine($"The {name} lies dead. The storm outside immediately begins to lighten.");
+            AnsiConsole.WriteLine("");
+            AnsiConsole.MarkupLine($"The {name} lies dead. The storm outside immediately begins to lighten.");
         }
     }
 }

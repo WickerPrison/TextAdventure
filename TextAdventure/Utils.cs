@@ -18,7 +18,7 @@ public static class Utils
         foreach(string line in storyEvent.text)
         {
             WriteLine("");
-            WriteLine(line);
+            AnsiConsole.MarkupLine(line);
 
             Console.ReadKey();
         }
@@ -76,7 +76,7 @@ public static class Utils
     public static void WriteLine(string printLine)
     {
         if (printLine == null) throw new Exception("Cannot print null");
-        AnsiConsole.WriteLine(printLine);
+        AnsiConsole.MarkupLine(printLine);
     }
 
     public static string[] JsonArrayToString(JsonArray jsonArray)

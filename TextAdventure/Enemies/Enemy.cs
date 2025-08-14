@@ -18,13 +18,7 @@ public abstract class Enemy: IDoCombat
 
     public void DisplayEnemy()
     {
-        Panel panel = new Panel($"{name}\n HP:{hp}/{maxHp}");
-
-        // Sets the border
-        panel.Border = BoxBorder.Ascii;
-        panel.Border = BoxBorder.Square;
-        panel.Border = BoxBorder.Rounded;
-        panel.Border = BoxBorder.Heavy;
+        Panel panel = new Panel($"[bold]{name}[/]\n HP:[red]{hp}/{maxHp}[/]");
         panel.Border = BoxBorder.Double;
 
         AnsiConsole.Write(panel);

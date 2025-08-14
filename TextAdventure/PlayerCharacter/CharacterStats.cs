@@ -77,7 +77,7 @@ public class CharacterStats
 
     public void LoseHealth(int amount)
     {
-        AnsiConsole.WriteLine($"{name} takes {amount} damage");
         hp -= amount;
+        AnsiConsole.MarkupLine($"{name} takes [red]{amount}[/] damage. {name} has [red]{hp}/{maxHp}[/] HP");
     }
 }

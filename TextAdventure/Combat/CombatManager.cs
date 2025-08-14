@@ -26,7 +26,6 @@ public class CombatManager
         AnsiConsole.WriteLine("");
         Console.ReadKey();
 
-        AnsiConsole.WriteLine("You view your foes and your allies");
         CombatUtils.DisplayEnemies(enemies);
         foreach(PlayerCharacter character in Data.party)
         {
