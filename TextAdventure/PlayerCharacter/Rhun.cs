@@ -6,8 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-class Rhun: PlayerCharacter
+public class Rhun: PlayerCharacter
 {
+    public List<IAmPlayerAction> rituals = new List<IAmPlayerAction>();
+
     public Rhun() : base()
     {
         name = "Rhun";

@@ -20,7 +20,7 @@ public class IncrementStatTrigger: IAmTrigger
 
     public void FireTrigger()
     {
-        PlayerCharacter playerCharacter = Data.party.Find(partyMember => partyMember.character == character);
+        PlayerCharacter playerCharacter = Data.GetPartyMember(character);
         playerCharacter.stats.IncrementStat(stat, amount);
     }
 }

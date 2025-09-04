@@ -53,12 +53,18 @@ public static class CombatUtils
 
     public static void DisplayAbilityDescription(AbilityDescription ability)
     {
+        Panel panel = GetAbilityDescriptionDisplay(ability);
+        AnsiConsole.Write(panel);
+    }
+
+    public static Panel GetAbilityDescriptionDisplay(AbilityDescription ability)
+    {
         Panel panel = new Panel($"[bold]{ability.name}[/]\n {ability.description}");
 
         // Sets the border
         panel.Border = BoxBorder.Rounded;
 
-        AnsiConsole.Write(panel);
+        return panel;
     }
 
     public static void SelectEnemy(Action<Enemy> attack, IAmPlayerAction backAction)

@@ -11,12 +11,15 @@ public class OpeningScene: IAmScene
     public OpeningScene()
     {
         StoryEvent crestPeak = new StoryEvent();
-        firstEvent = crestPeak;
+        //firstEvent = crestPeak;
         StoryEvent choosePath = new StoryEvent();
         StoryEvent forest = new StoryEvent();
         StoryEvent rain = new StoryEvent();
         StoryEvent reachShrine = new StoryEvent();
         StoryEvent glawddTrial = new StoryEvent();
+        StoryEvent trialReward = new StoryEvent();
+        StoryEvent chooseReward = new StoryEvent();
+        firstEvent = trialReward;
 
 
         crestPeak.text = ["Rhun crested the top of a peak and there it was, merely a mile away. The shrine where he would finally become a priest of Glawdd."];
@@ -42,17 +45,24 @@ public class OpeningScene: IAmScene
         rain.next = reachShrine;
 
         reachShrine.text = [
-          "As Rhun reached the shrine, the storm rose to levels of ferocity reserved only for the preists of Glawdd.",
+          "As Rhun reached the shrine, the storm rose to levels of ferocity reserved only for the priests of Glawdd.",
           "He pulled the small, but sturdy, stone door open and slid into the dark room. The only source of light was a candle held by a middle aged man seated in the middle of the room.",
           "\"Welcome to the shrine of Glawdd\", the man said as he stepped to one corner of the room and gestured for Rhun to stand in front of the altar.",
           "Rhun stepped forward and warily eyed the chunk of scaly flesh wriggling on the altar.",
           "\"The priests of Glawdd are the only line of defense between the people and Glawdd, the God of Storms.\", the man continued, \"In joining our ranks you will incur his wrath. He will seek to destroy you at every turn. But in turn, you will bring saftey to the people. Do you understand?\"",
           "\"Yes\", Rhun said, keeping his eyes focused on the scrap of flesh. A scrap of flesh torn from the body of Glawdd himself by a High Priest, and the final test Rhun would pass to become a priest.",
-          "\"Very well. Draw your sword and be warned, it will fight back\""
+          "\"Very well. Draw your sword and be warned, it will fight back.\""
         ];
         reachShrine.next = glawddTrial;
 
         glawddTrial.text = ["Rhun drew his sword and prepared for combat."];
         glawddTrial.triggers = [new StartCombatTrigger(new List<Enemy>() { new FleshOfGlawdd() })];
+        glawddTrial.next = trialReward;
+
+        trialReward.text = ["The priest stepped forward, \"Congratulations, you have earned the wrath of Glawdd. I will now craft a holy symbol from this chunk of his flesh. It will grant you great power, but each use will incurr Glawdd's [red]Wrath[/]. Should that [red]Wrath[/] ever exceed your [blue]Defiance[/], he will have the power to strike you down.\""];
+        trialReward.next = chooseReward;
+
+        chooseReward.text = ["\"What holy symbol shall I craft for you?\""];
+        chooseReward.triggers = [new ChooseRewardTrigger(new List<IAmReward>() { new CleansingRains(), new CleansingRains()})];
     }
 }
